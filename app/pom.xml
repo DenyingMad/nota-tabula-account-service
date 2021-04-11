@@ -12,7 +12,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>app</artifactId>
-    <name>Account Service</name>
+    <name>Account Service - App</name>
 
     <modules>
         <module>app-api</module>

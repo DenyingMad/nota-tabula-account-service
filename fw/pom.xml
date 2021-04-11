@@ -39,6 +39,19 @@
             <groupId>${groupId}</groupId>
             <artifactId>adapter-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>adapter-rest</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>app-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>app-impl</artifactId>
+        </dependency>
+
         <!-- ============= -->
         <!--   STARTERS    -->
         <!-- ============= -->
@@ -91,5 +104,4 @@
             <version>2.9.2</version>
         </dependency>
     </dependencies>
-
 </project>

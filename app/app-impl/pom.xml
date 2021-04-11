@@ -12,4 +12,15 @@
 
     <artifactId>app-impl</artifactId>
     <name>Account Service - App Impl</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>app-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>adapter-jpa</artifactId>
+        </dependency>
+    </dependencies>
 </project>

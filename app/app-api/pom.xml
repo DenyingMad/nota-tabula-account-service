@@ -13,4 +13,15 @@
     <artifactId>app-api</artifactId>
     <name>Account Service - App Api</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.devilpanda</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+    </dependencies>
 </project>
