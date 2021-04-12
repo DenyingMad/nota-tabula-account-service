@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>domain</artifactId>
-    <name>Account Service - Domain</name>
+    <name>User Service - Domain</name>
 
     <dependencies>
         <dependency>

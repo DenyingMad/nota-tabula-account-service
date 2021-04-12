@@ -10,9 +10,9 @@
 	</parent>
 	<packaging>pom</packaging>
 
-	<artifactId>account_service</artifactId>
+	<artifactId>user_service</artifactId>
 	<version>1.0</version>
-	<name>Nota Tabula - Account Service</name>
+	<name>Nota Tabula - User Service</name>
 
 	<modules>
 		<module>parent</module>

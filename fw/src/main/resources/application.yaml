@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://nota-tabula.ctezjyhwnobs.eu-central-1.rds.amazonaws.com:5432/accounts
+    url: jdbc:postgresql://nota-tabula.ctezjyhwnobs.eu-central-1.rds.amazonaws.com:5432/users
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver

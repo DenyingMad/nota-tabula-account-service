@@ -11,11 +11,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>adapter-rest</artifactId>
-    <name>Account Service - Rest Adapter</name>
+    <name>User Service - Rest Adapter</name>
 
     <dependencies>
         <dependency>
-            <groupId>com.devilpanda</groupId>
+            <groupId>${groupId}</groupId>
             <artifactId>app-api</artifactId>
         </dependency>
 

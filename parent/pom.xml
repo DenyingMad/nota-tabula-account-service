@@ -15,7 +15,7 @@
     <artifactId>parent</artifactId>
     <version>1.0</version>
 
-    <name>Account Service - Parent</name>
+    <name>User Service - Parent</name>
 
     <properties>
         <java.version>11</java.version>

@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <artifactId>adapter</artifactId>
-    <name>Account Service - Adapter</name>
+    <name>User Service - Adapter</name>
 
     <modules>
         <module>adapter-rest</module>

@@ -1,2 +1,2 @@
-# nota-tabula-account-service
+# Nota Tabula - User Service
 Сервис управления пользователями

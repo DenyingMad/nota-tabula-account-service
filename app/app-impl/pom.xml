@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>app-impl</artifactId>
-    <name>Account Service - App Impl</name>
+    <name>User Service - App Impl</name>
 
     <dependencies>
         <dependency>

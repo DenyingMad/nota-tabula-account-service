@@ -11,11 +11,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>app-api</artifactId>
-    <name>Account Service - App Api</name>
+    <name>User Service - App Api</name>
 
     <dependencies>
         <dependency>
-            <groupId>com.devilpanda</groupId>
+            <groupId>${groupId}</groupId>
             <artifactId>domain</artifactId>
         </dependency>
 
