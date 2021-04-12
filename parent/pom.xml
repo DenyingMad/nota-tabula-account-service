@@ -24,34 +24,34 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>fw</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>${groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>domain</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>${groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>app-api</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>${groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>app-impl</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>${groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>adapter-rest</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>${groupId}</groupId>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>adapter-jpa</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
