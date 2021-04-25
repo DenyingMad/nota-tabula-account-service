@@ -6,5 +6,5 @@ RUN mvn package -Dmaven.test.skip=true
 
 FROM adoptopenjdk/openjdk11:alpine-jre
 COPY --from=builder /src/fw/target/*.jar app.jar
-EXPOSE 8081
+EXPOSE 8082
 ENTRYPOINT ["java", "-jar", "/app.jar"]
