@@ -2,6 +2,8 @@ server:
   port: 8082
 
 spring:
+  application:
+    name: User-Service
   datasource:
     url: jdbc:postgresql://nota-tabula.ctezjyhwnobs.eu-central-1.rds.amazonaws.com:5432/users
     username: postgres
@@ -9,3 +11,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
+
+eureka:
+  instance:
+    prefer-ip-address: true
