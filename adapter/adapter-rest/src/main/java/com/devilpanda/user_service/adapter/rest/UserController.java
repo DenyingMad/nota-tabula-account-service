@@ -19,9 +19,9 @@ public class UserController {
             @ApiResponse(code = 409, message = "Action rejected due to business rules / validations")
     })
     @PostMapping
-    public UserDto createUser(@RequestBody UserFormDto userFormDto) {
+    public void createUser(@RequestBody UserFormDto userFormDto) {
         User user = mapper.mapUserFromUserDto(userFormDto);
-        return mapper.mapDtoFromUser(userService.createUser(user));
+        userService.createUser(user);
     }
 
     @GetMapping("/{login}")

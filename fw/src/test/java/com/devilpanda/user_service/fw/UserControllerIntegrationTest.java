@@ -1,5 +1,6 @@
 package com.devilpanda.user_service.fw;
 
+import com.devilpanda.user_service.adapter.jpa.UserRepository;
 import com.devilpanda.user_service.adapter.rest.UserDto;
 import com.devilpanda.user_service.adapter.rest.UserFormDto;
 import com.devilpanda.user_service.domain.User;
@@ -27,6 +28,8 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
     private TransactionOperations transactionOperations;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private UserRepository userRepository;
 
     @AfterEach
     public void tearDown() {
@@ -35,18 +38,17 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
 
     @Test
     public void createUser() throws Exception {
-        UserFormDto userForm = new UserFormDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD);
+        UserFormDto userForm = new UserFormDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD, false);
 
-        UserDto response = performCreateUserAndGetResponse(userForm);
+        performCreateUser(userForm);
 
-        assertEquals(LOGIN_PETROV, response.getLogin());
-        assertEquals(EMAIL_PETROV, response.getEmail());
+        assertUserCreated();
     }
 
     @Test
     public void createUser_error_loginTaken() throws Exception {
-        UserFormDto userForm1 = new UserFormDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD);
-        UserFormDto userForm2 = new UserFormDto(LOGIN_PETROV, EMAIL_IVANOV, PASSWORD);
+        UserFormDto userForm1 = new UserFormDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD, false);
+        UserFormDto userForm2 = new UserFormDto(LOGIN_PETROV, EMAIL_IVANOV, PASSWORD, false);
         performCreateUser(userForm1);
 
         MockHttpServletResponse response = performCreateUser(userForm2)
@@ -58,8 +60,8 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
 
     @Test
     public void createUser_error_emailTaken() throws Exception {
-        UserFormDto userForm1 = new UserFormDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD);
-        UserFormDto userForm2 = new UserFormDto(LOGIN_IVANOV, EMAIL_PETROV, PASSWORD);
+        UserFormDto userForm1 = new UserFormDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD, false);
+        UserFormDto userForm2 = new UserFormDto(LOGIN_IVANOV, EMAIL_PETROV, PASSWORD, false);
         performCreateUser(userForm1);
 
         MockHttpServletResponse response = performCreateUser(userForm2)
@@ -72,7 +74,7 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
 
     @Test
     public void getUser_byLogin() throws Exception {
-        performCreateUser(new UserFormDto(LOGIN_IVANOV, EMAIL_IVANOV, PASSWORD));
+        performCreateUser(new UserFormDto(LOGIN_IVANOV, EMAIL_IVANOV, PASSWORD, false));
 
         UserDto user = performGetUserByLoginAndGetResponse(LOGIN_IVANOV);
 
@@ -80,9 +82,15 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
         assertEquals(EMAIL_IVANOV, user.getEmail());
     }
 
-    // =-----------------------------------------------------
-    // Implementation
-    // =-----------------------------------------------------
+    // ------------------------------------------------------
+    // = Implementation
+    // ------------------------------------------------------
+
+    private void assertUserCreated() {
+        User user = userRepository.findUserByLogin(LOGIN_PETROV).get();
+        assertEquals(LOGIN_PETROV, user.getLogin());
+        assertEquals(EMAIL_PETROV, user.getEmail());
+    }
 
     private <T> void deleteAllEntitiesOf(Class<T> entityClass) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

@@ -38,14 +38,6 @@ public class AbstractApiIntegrationTest {
         return this.mvc.perform(get(REST_API_USER + login));
     }
 
-    protected UserDto performCreateUserAndGetResponse(UserFormDto userForm) throws Exception {
-        MockHttpServletResponse response = performCreateUser(userForm)
-                .andExpect(status().isOk())
-                .andReturn().getResponse();
-        return getObjectFromResponse(response, new TypeReference<>() {
-        });
-    }
-
     protected UserDto performGetUserByLoginAndGetResponse(String login) throws Exception {
         MockHttpServletResponse response = performGetUserByLogin(login)
                 .andExpect(status().isOk())

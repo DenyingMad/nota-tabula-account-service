@@ -6,6 +6,7 @@ import com.devilpanda.user_service.app.api.UserService;
 import com.devilpanda.user_service.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -20,15 +21,14 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(EntityNotFoundException::new);
     }
 
+    @Transactional
     @Override
     public User createUser(User user) {
-        if (userRepository.findUserByLogin(user.getLogin()).isPresent()) {
+        if (userRepository.findUserByLogin(user.getLogin()).isPresent())
             throw new UserAlreadyExistsException("Login " + user.getLogin());
-        }
-        if (userRepository.findUserByEmail(user.getEmail()).isPresent()) {
+        if (userRepository.findUserByEmail(user.getEmail()).isPresent())
             throw new UserAlreadyExistsException("Email " + user.getEmail());
-        }
 
-        return userRepository.saveAndFlush(user);
+        return userRepository.save(user);
     }
 }
