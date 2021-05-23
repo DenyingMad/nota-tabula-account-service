@@ -1,5 +1,8 @@
 package com.devilpanda.user_service.adapter.rest;
 
+import com.devilpanda.user_service.adapter.rest.dto.UserAuthDto;
+import com.devilpanda.user_service.adapter.rest.dto.UserDtoMapper;
+import com.devilpanda.user_service.adapter.rest.dto.UserCreationRequestDto;
 import com.devilpanda.user_service.domain.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -21,7 +24,7 @@ import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UserDtoMapperTest {
+public class UserAuthDtoMapperTest {
     private ObjectMapper objectMapper;
     private UserDtoMapper mapper;
 
@@ -39,21 +42,21 @@ public class UserDtoMapperTest {
     }
 
     @Test
-    public void map_dtoFromUser() {
-        User user = readObjectFromFile("/UserDtoMapper/User_old.json", User.class);
+    public void map_authDtoFromUser() {
+        User user = readObjectFromFile("/UserDtoMapper/User.json", User.class);
 
-        UserDto dto = mapper.mapDtoFromUser(user);
+        UserAuthDto dto = mapper.mapDtoFromUser(user);
 
-        assertEqualsToFile("/UserDtoMapper/UserDto.json", dto);
+        assertEqualsToFile("/UserDtoMapper/UserAuthDto.json", dto);
     }
 
     @Test
-    public void map_userFromUserFormDto() {
-        UserFormDto userForm = readObjectFromFile("/UserDtoMapper/UserFormDto.json", UserFormDto.class);
+    public void map_userFromUserCreationRequestDto() {
+        UserCreationRequestDto userForm = readObjectFromFile("/UserDtoMapper/UserCreationRequestDto.json", UserCreationRequestDto.class);
 
         User user = mapper.mapUserFromUserDto(userForm);
 
-        assertEqualsToFile("/UserDtoMapper/User_created.json", user);
+        assertEqualsToFile("/UserDtoMapper/User.json", user);
     }
 
     // =-----------------------------------------------------

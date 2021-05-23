@@ -1,5 +1,8 @@
 package com.devilpanda.user_service.adapter.rest;
 
+import com.devilpanda.user_service.adapter.rest.dto.UserAuthDto;
+import com.devilpanda.user_service.adapter.rest.dto.UserDtoMapper;
+import com.devilpanda.user_service.adapter.rest.dto.UserCreationRequestDto;
 import com.devilpanda.user_service.app.api.UserService;
 import com.devilpanda.user_service.domain.User;
 import io.swagger.annotations.ApiResponse;
@@ -15,18 +18,32 @@ public class UserController {
     private final UserDtoMapper mapper;
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = UserDto.class),
+            @ApiResponse(code = 200, message = "OK", response = UserAuthDto.class),
             @ApiResponse(code = 409, message = "Action rejected due to business rules / validations")
     })
     @PostMapping
-    public void createUser(@RequestBody UserFormDto userFormDto) {
-        User user = mapper.mapUserFromUserDto(userFormDto);
+    public void createUser(@RequestBody UserCreationRequestDto userCreationRequestDto) {
+        User user = mapper.mapUserFromUserDto(userCreationRequestDto);
         userService.createUser(user);
     }
 
-    @GetMapping("/{login}")
-    public UserDto getUser(@PathVariable String login) {
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = UserAuthDto.class),
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    @GetMapping("/login")
+    public UserAuthDto getUserByLogin(@RequestParam String login) {
         User user = userService.getUserByLogin(login);
+        return mapper.mapDtoFromUser(user);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = UserAuthDto.class),
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    @GetMapping("/email")
+    public UserAuthDto getUserByEmail(@RequestParam String email) {
+        User user = userService.getUserByEmail(email);
         return mapper.mapDtoFromUser(user);
     }
 }

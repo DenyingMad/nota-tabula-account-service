@@ -1,5 +1,6 @@
 {
-  "email": "test_user@gmail.com",
   "login": "test_user",
+  "isSubscribed": true,
+  "email": "test_user@gmail.com",
   "password": "strong_hashed_password"
 }

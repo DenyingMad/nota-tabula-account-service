@@ -1,8 +1,8 @@
 package com.devilpanda.user_service.fw;
 
 import com.devilpanda.user_service.adapter.jpa.UserRepository;
-import com.devilpanda.user_service.adapter.rest.UserDto;
-import com.devilpanda.user_service.adapter.rest.UserFormDto;
+import com.devilpanda.user_service.adapter.rest.dto.UserAuthDto;
+import com.devilpanda.user_service.adapter.rest.dto.UserCreationRequestDto;
 import com.devilpanda.user_service.domain.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
 
     @Test
     public void createUser() throws Exception {
-        UserFormDto userForm = new UserFormDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD, false);
+        UserCreationRequestDto userForm = new UserCreationRequestDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD, false);
 
         performCreateUser(userForm);
 
@@ -47,8 +47,8 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
 
     @Test
     public void createUser_error_loginTaken() throws Exception {
-        UserFormDto userForm1 = new UserFormDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD, false);
-        UserFormDto userForm2 = new UserFormDto(LOGIN_PETROV, EMAIL_IVANOV, PASSWORD, false);
+        UserCreationRequestDto userForm1 = new UserCreationRequestDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD, false);
+        UserCreationRequestDto userForm2 = new UserCreationRequestDto(LOGIN_PETROV, EMAIL_IVANOV, PASSWORD, false);
         performCreateUser(userForm1);
 
         MockHttpServletResponse response = performCreateUser(userForm2)
@@ -60,8 +60,8 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
 
     @Test
     public void createUser_error_emailTaken() throws Exception {
-        UserFormDto userForm1 = new UserFormDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD, false);
-        UserFormDto userForm2 = new UserFormDto(LOGIN_IVANOV, EMAIL_PETROV, PASSWORD, false);
+        UserCreationRequestDto userForm1 = new UserCreationRequestDto(LOGIN_PETROV, EMAIL_PETROV, PASSWORD, false);
+        UserCreationRequestDto userForm2 = new UserCreationRequestDto(LOGIN_IVANOV, EMAIL_PETROV, PASSWORD, false);
         performCreateUser(userForm1);
 
         MockHttpServletResponse response = performCreateUser(userForm2)
@@ -74,9 +74,9 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
 
     @Test
     public void getUser_byLogin() throws Exception {
-        performCreateUser(new UserFormDto(LOGIN_IVANOV, EMAIL_IVANOV, PASSWORD, false));
+        performCreateUser(new UserCreationRequestDto(LOGIN_IVANOV, EMAIL_IVANOV, PASSWORD, false));
 
-        UserDto user = performGetUserByLoginAndGetResponse(LOGIN_IVANOV);
+        UserAuthDto user = performGetUserByLoginAndGetResponse(LOGIN_IVANOV);
 
         assertEquals(LOGIN_IVANOV, user.getLogin());
         assertEquals(EMAIL_IVANOV, user.getEmail());

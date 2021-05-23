@@ -2,6 +2,7 @@ package com.devilpanda.user_service.app.impl;
 
 import com.devilpanda.user_service.adapter.jpa.UserRepository;
 import com.devilpanda.user_service.app.api.UserAlreadyExistsException;
+import com.devilpanda.user_service.app.api.UserNotFoundException;
 import com.devilpanda.user_service.app.api.UserService;
 import com.devilpanda.user_service.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,12 @@ public class UserServiceImpl implements UserService {
     public User getUserByLogin(String login) {
         return userRepository.findUserByLogin(login)
                 .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException(email));
     }
 
     @Transactional
