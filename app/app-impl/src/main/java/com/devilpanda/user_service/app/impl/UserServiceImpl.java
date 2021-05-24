@@ -48,4 +48,13 @@ public class UserServiceImpl implements UserService {
         user.setUserName(userName);
         return user;
     }
+
+    @Transactional
+    @Override
+    public User changePassword(String login, String password) {
+        User user = userRepository.findUserByLogin(login)
+                .orElseThrow(() -> new UserNotFoundException(login));
+        user.setPassword(password);
+        return user;
+    }
 }

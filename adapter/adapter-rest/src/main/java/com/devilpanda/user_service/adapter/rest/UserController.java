@@ -52,6 +52,15 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = UserAuthDto.class),
             @ApiResponse(code = 404, message = "User not found")
     })
+    @PutMapping("/change-password")
+    public void changePassword(@RequestHeader("userLogin") String login, @RequestBody String password) {
+        userService.changePassword(login, password);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = UserAuthDto.class),
+            @ApiResponse(code = 404, message = "User not found")
+    })
     @GetMapping("/login")
     public UserAuthDto getUserByLogin(@RequestParam String login) {
         User user = userService.getUserByLogin(login);
