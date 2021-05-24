@@ -3,6 +3,7 @@ package com.devilpanda.user_service.fw;
 import com.devilpanda.user_service.adapter.jpa.UserRepository;
 import com.devilpanda.user_service.adapter.rest.dto.UserAuthDto;
 import com.devilpanda.user_service.adapter.rest.dto.UserCreationRequestDto;
+import com.devilpanda.user_service.adapter.rest.dto.UserDto;
 import com.devilpanda.user_service.domain.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -43,6 +44,16 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
         performCreateUser(userForm);
 
         assertUserCreated();
+    }
+
+    @Test
+    public void getUser() throws Exception {
+        performCreateUser(new UserCreationRequestDto(LOGIN_IVANOV, EMAIL_IVANOV, PASSWORD, false));
+
+        UserDto user = performGetUserInfoAndGetResponse(LOGIN_IVANOV);
+
+        assertEquals(EMAIL_IVANOV, user.getEmail());
+        assertEquals(LOGIN_IVANOV, user.getUserName());
     }
 
     @Test

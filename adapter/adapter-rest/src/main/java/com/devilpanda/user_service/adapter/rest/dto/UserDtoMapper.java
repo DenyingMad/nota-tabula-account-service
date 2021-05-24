@@ -18,10 +18,15 @@ public class UserDtoMapper {
                 .addMapping(UserCreationRequestDto::getEmail, User::setEmail)
                 .addMapping(UserCreationRequestDto::getPassword, User::setPassword);
         mapper.typeMap(User.class, UserCreationRequestDto.class);
+        mapper.typeMap(User.class, UserDto.class);
     }
 
-    public UserAuthDto mapDtoFromUser(User source) {
+    public UserAuthDto mapAuthDtoFromUser(User source) {
         return mapper.map(source, UserAuthDto.class);
+    }
+
+    public UserDto mapDtoFromUser(User source) {
+        return mapper.map(source, UserDto.class);
     }
 
     public UserCreationRequestDto mapFormDtoFromUser(User source) {

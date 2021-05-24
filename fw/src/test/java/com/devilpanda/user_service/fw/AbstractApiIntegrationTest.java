@@ -2,6 +2,7 @@ package com.devilpanda.user_service.fw;
 
 import com.devilpanda.user_service.adapter.rest.dto.UserAuthDto;
 import com.devilpanda.user_service.adapter.rest.dto.UserCreationRequestDto;
+import com.devilpanda.user_service.adapter.rest.dto.UserDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,19 @@ public class AbstractApiIntegrationTest {
         return this.mvc.perform(post(REST_API_USER)
                 .content(contentJson)
                 .contentType(APPLICATION_JSON));
+    }
+
+    protected ResultActions performGetUserInfo(String httpHeaderLogin) throws Exception {
+        return this.mvc.perform(get(REST_API_USER)
+                .header("userLogin", httpHeaderLogin));
+    }
+
+    protected UserDto performGetUserInfoAndGetResponse(String httpHeaderLogin) throws Exception {
+        MockHttpServletResponse response = performGetUserInfo(httpHeaderLogin)
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+        return getObjectFromResponse(response, new TypeReference<>(){
+        });
     }
 
     protected ResultActions performGetUserByLogin(String login) throws Exception {

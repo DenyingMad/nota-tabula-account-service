@@ -1,6 +1,7 @@
 package com.devilpanda.user_service.adapter.rest;
 
 import com.devilpanda.user_service.adapter.rest.dto.UserAuthDto;
+import com.devilpanda.user_service.adapter.rest.dto.UserDto;
 import com.devilpanda.user_service.adapter.rest.dto.UserDtoMapper;
 import com.devilpanda.user_service.adapter.rest.dto.UserCreationRequestDto;
 import com.devilpanda.user_service.app.api.UserService;
@@ -31,10 +32,20 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = UserAuthDto.class),
             @ApiResponse(code = 404, message = "User not found")
     })
+    @GetMapping
+    public UserDto getUserInfo(@RequestHeader("userLogin") String login) {
+        User user = userService.getUserByLogin(login);
+        return mapper.mapDtoFromUser(user);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = UserAuthDto.class),
+            @ApiResponse(code = 404, message = "User not found")
+    })
     @GetMapping("/login")
     public UserAuthDto getUserByLogin(@RequestParam String login) {
         User user = userService.getUserByLogin(login);
-        return mapper.mapDtoFromUser(user);
+        return mapper.mapAuthDtoFromUser(user);
     }
 
     @ApiResponses(value = {
@@ -44,6 +55,6 @@ public class UserController {
     @GetMapping("/email")
     public UserAuthDto getUserByEmail(@RequestParam String email) {
         User user = userService.getUserByEmail(email);
-        return mapper.mapDtoFromUser(user);
+        return mapper.mapAuthDtoFromUser(user);
     }
 }

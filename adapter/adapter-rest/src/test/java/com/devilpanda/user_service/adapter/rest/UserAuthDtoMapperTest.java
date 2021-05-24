@@ -45,7 +45,7 @@ public class UserAuthDtoMapperTest {
     public void map_authDtoFromUser() {
         User user = readObjectFromFile("/UserDtoMapper/User.json", User.class);
 
-        UserAuthDto dto = mapper.mapDtoFromUser(user);
+        UserAuthDto dto = mapper.mapAuthDtoFromUser(user);
 
         assertEqualsToFile("/UserDtoMapper/UserAuthDto.json", dto);
     }
