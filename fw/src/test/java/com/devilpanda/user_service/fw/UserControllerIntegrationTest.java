@@ -93,9 +93,24 @@ public class UserControllerIntegrationTest extends AbstractApiIntegrationTest {
         assertEquals(EMAIL_IVANOV, user.getEmail());
     }
 
+    @Test
+    public void changeUserName() throws Exception {
+        performCreateUser(new UserCreationRequestDto(LOGIN_IVANOV, EMAIL_IVANOV, PASSWORD, false));
+
+        performChangeUserName(LOGIN_IVANOV, LOGIN_PETROV);
+
+        assertUserNameIs(LOGIN_PETROV);
+    }
+
     // ------------------------------------------------------
     // = Implementation
     // ------------------------------------------------------
+
+    private void assertUserNameIs(String userName) {
+        User user = userRepository.findUserByLogin(LOGIN_IVANOV).get();
+        assertEquals(LOGIN_IVANOV, user.getLogin());
+        assertEquals(LOGIN_PETROV, user.getUserName());
+    }
 
     private void assertUserCreated() {
         User user = userRepository.findUserByLogin(LOGIN_PETROV).get();

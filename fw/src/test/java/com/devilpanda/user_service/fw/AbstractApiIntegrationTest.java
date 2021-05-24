@@ -8,14 +8,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -35,7 +35,7 @@ public class AbstractApiIntegrationTest {
                 .contentType(APPLICATION_JSON));
     }
 
-    protected ResultActions performGetUserInfo(String httpHeaderLogin) throws Exception {
+    private ResultActions performGetUserInfo(String httpHeaderLogin) throws Exception {
         return this.mvc.perform(get(REST_API_USER)
                 .header("userLogin", httpHeaderLogin));
     }
@@ -44,8 +44,15 @@ public class AbstractApiIntegrationTest {
         MockHttpServletResponse response = performGetUserInfo(httpHeaderLogin)
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
-        return getObjectFromResponse(response, new TypeReference<>(){
+        return getObjectFromResponse(response, new TypeReference<>() {
         });
+    }
+
+    protected ResultActions performChangeUserName(String httpHeaderLogin, String userName) throws Exception {
+        return this.mvc.perform(put(REST_API_USER + "/username")
+                .header("userLogin", httpHeaderLogin)
+                .content(userName)
+                .contentType(APPLICATION_JSON));
     }
 
     protected ResultActions performGetUserByLogin(String login) throws Exception {

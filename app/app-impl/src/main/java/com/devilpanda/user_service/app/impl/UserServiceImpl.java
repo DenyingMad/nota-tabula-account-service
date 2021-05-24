@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByLogin(String login) {
         return userRepository.findUserByLogin(login)
-                .orElseThrow(EntityNotFoundException::new);
+                .orElseThrow(() -> new UserNotFoundException(login));
     }
 
     @Override
@@ -38,5 +38,14 @@ public class UserServiceImpl implements UserService {
         user.setUserName(user.getLogin());
 
         return userRepository.save(user);
+    }
+
+    @Transactional
+    @Override
+    public User changeUserName(String login, String userName) {
+        User user = userRepository.findUserByLogin(login)
+                .orElseThrow(() -> new UserNotFoundException(login));
+        user.setUserName(userName);
+        return user;
     }
 }
